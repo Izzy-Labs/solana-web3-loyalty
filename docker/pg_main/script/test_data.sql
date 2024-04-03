@@ -11,10 +11,10 @@ INSERT INTO admins (user_id, username, firstname, secondname, email, phone, pass
 VALUES (755464644, 'admin_1', 'admin_name', 'admin_secondname', 'admin@email', '1234567890', 'admin_password', '2021-01-01 00:00:00');
 
 INSERT INTO institutions (admin_id, name, location, description, created_at)
-VALUES (2, 'Yidalnya', 'USA, Pentagon, 3 2/4', 'Yidalnya in Pentagon', '2021-01-01 00:00:00');
+VALUES (1, 'Yidalnya', 'USA, Pentagon, 3 2/4', 'Yidalnya in Pentagon', '2021-01-01 00:00:00');
 
 INSERT INTO institution_offers (institution_id, name, description, price, created_at)
-VALUES (2, 'Halushky', 'Halushky from Yidalnya in Pentagon', 100.0000, '2021-01-01 00:00:00');
+VALUES (1, 'Halushky', 'Halushky from Yidalnya in Pentagon', 100.0000, '2021-01-01 00:00:00');
 
 INSERT INTO institution_staff (institution_id, user_id, created_at)
-VALUES (2, 2116893648, '2021-01-01 00:00:00');
+VALUES (1, 2116893648, '2021-01-01 00:00:00');
