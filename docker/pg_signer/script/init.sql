@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS keypairs (
+    id SERIAL PRIMARY KEY,
+    public_key VARCHAR(44) UNIQUE NOT NULL,
+    private_key_encrypted BYTEA NOT NULL,
+    status VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

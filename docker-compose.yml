@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  pg_main:
+    container_name: pg_main
+    build:
+        context: .
+        dockerfile: docker/pg_main/Dockerfile
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./environments/pg_main.env
+    networks:
+      - common_network
+    volumes:
+      - pg_main_volume:/var/lib/postgresql/data/
+
+  pg_signer:
+    container_name: pg_signer
+    image: postgres:16.2
+    restart: always
+    env_file:
+      - ./environments/pg_signer.env
+    networks:
+      - pg_signer_network
+    volumes:
+      - pg_signer_volume:/var/lib/postgresql/data/
+      - ./docker/pg_signer/script:/docker-entrypoint-initdb.d/
+
+  signer:
+    container_name: signer
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/signer/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - pg_signer
+    volumes:
+      - ./signer:/signer
+      - ./protos:/signer/protos
+    env_file:
+      - ./environments/pg_signer.env
+      - ./environments/signer.env
+    networks:
+      - pg_signer_network
+      - common_network
+
+  telegram:
+    container_name: telegram
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/telegram/Dockerfile
+    networks:
+      - common_network
+    links:
+      - signer
+      - pg_main
+    depends_on:
+      - signer
+      - pg_main
+    volumes:
+      - ./telegram:/telegram
+      - ./protos:/telegram/protos
+    env_file:
+      - ./environments/signer.env
+      - ./environments/pg_main.env
+      - ./environments/telegram.env
+
+
+networks:
+  pg_signer_network:
+    driver: bridge
+  common_network:
+    driver: bridge
+
+volumes:
+    pg_main_volume:
+    pg_signer_volume:
