@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package minter;
+
+service Minter {
+  rpc MintNFT(MintNFTRequest) returns (MintNFTResponse);
+
+  rpc MintIzzyToken(MintIzzyTokenRequest) returns (MintIzzyTokenResponse);
+}
+
+message MintNFTRequest {
+  string name = 1;
+  string symbol = 2;
+  string uri = 3;
+  string description = 4;
+}
+
+//message MintNFTRequest {
+//  string name = 1;
+//  string symbol = 2;
+//  string img_url = 3;
+//  string description = 4;
+//  string type = 5;
+//  string brand = 6;
+//  string brand_url = 7;
+//  string achievement = 8;
+//  string destination = 10;
+//}
+
+message MintNFTResponse {
+  string publicKey = 1;
+  string signature = 2;
+}
+
+message MintIzzyTokenRequest {
+  string destination = 1;
+  uint64 amount = 2;
+}
+
+message MintIzzyTokenResponse {
+  string signature = 1;
+}

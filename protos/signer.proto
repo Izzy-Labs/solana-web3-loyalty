@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package signer;
+
+service Signer {
+  rpc GenKeypair(GenKeypairRequest) returns (GenKeypairResponse);
+
+  rpc GetAllKeys(GetAllKeysRequest) returns (GetAllKeysResponse);
+
+  rpc Sign(SignRequest) returns (SignResponse);
+}
+
+message GenKeypairRequest {}
+
+message GenKeypairResponse {
+  string publicKey = 1;
+}
+
+message GetAllKeysRequest {}
+
+message GetAllKeysResponse {
+  repeated string keys = 1;
+}
+
+message SignRequest {
+  string key = 1;
+  string data = 2;
+}
+
+message SignResponse {
+  string signature = 1;
+}
+
