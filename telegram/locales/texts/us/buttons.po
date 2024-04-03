@@ -1,0 +1,5 @@
+msgid "contact_request"
+msgstr "contact request"
+
+msgid "webapp"
+msgstr "webapp"
