@@ -30,8 +30,8 @@ services:
 
   node:
     build: 
-        context: .
-        dockerfile: node/Dockerfile
+      context: ./node # Указывает Docker использовать директорию ./node как контекст сборки
+      dockerfile: ../docker/node/Dockerfile # Путь к Dockerfile относительно контекста сборки
     restart: always
     ports:
       - "3001:3001"
