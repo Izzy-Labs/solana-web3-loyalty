@@ -29,7 +29,7 @@ app.get('/api/events', async (req, res) => {
 });
 
 app.get('/api/check-user', async (req, res) => {
-    const { userId } = req.body; // ID пользователя, полученный от клиента
+  const userId = req.query.userId;
     try {
       // Проверка наличия пользователя в таблице admins
   
