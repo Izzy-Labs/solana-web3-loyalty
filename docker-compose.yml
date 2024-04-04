@@ -28,6 +28,19 @@ services:
       - pg_signer_volume:/var/lib/postgresql/data/
       - ./docker/pg_signer/script:/docker-entrypoint-initdb.d/
 
+  node:
+    build: 
+        context: .
+        dockerfile: docker/node/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - common_network
+    depends_on:
+      - pg_main
+
   signer:
     container_name: signer
     restart: always
