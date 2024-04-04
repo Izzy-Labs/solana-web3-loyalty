@@ -48,8 +48,6 @@ services:
     build:
       context: .
       dockerfile: docker/signer/Dockerfile
-    ports:
-      - "5000:5000"
     depends_on:
       - pg_signer
     volumes:
@@ -70,9 +68,6 @@ services:
       dockerfile: docker/telegram/Dockerfile
     networks:
       - common_network
-    links:
-      - signer
-      - pg_main
     depends_on:
       - signer
       - pg_main

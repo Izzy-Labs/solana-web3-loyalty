@@ -14,7 +14,7 @@ class PostgresEnv:
 
 
 class SignerEnv:
-    HOST: str = "signer"
-    PORT: int = 5000
+    HOST: str = environ.get("SIGNER_HOST", "define me")
+    PORT: int = int(environ.get("SIGNER_PORT", "define me"))
 
     connection_string = f"{HOST}:{PORT}"
