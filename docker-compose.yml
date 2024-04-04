@@ -31,7 +31,7 @@ services:
   node:
     build: 
         context: .
-        dockerfile: docker/node/Dockerfile
+        dockerfile: node/Dockerfile
     restart: always
     ports:
       - "3001:3001"
