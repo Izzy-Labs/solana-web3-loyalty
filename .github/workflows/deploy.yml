@@ -19,7 +19,7 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no root@$80.249.131.220 << 'EOF'
+        ssh -o StrictHostKeyChecking=no root@80.249.131.220 << 'EOF'
           cd solana-web3-loyalty/
           git pull
           docker-compose down
