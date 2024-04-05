@@ -79,6 +79,20 @@ services:
       - ./environments/pg_main.env
       - ./environments/telegram.env
 
+  minter:
+    container_name: minter
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/minter/Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - common_network
+    env_file:
+      - ./environments/minter.env
+    environment:
+      - SOLANA_PRIVATE_KEY=${SOLANA_PRIVATE_KEY}
 
 networks:
   pg_signer_network:

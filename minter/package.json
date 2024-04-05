@@ -1,0 +1,21 @@
+{
+  "name": "solana-token-service",
+  "version": "1.0.0",
+  "description": "Service for creating and mint Solana fungible and nonFungible tokens",
+  "main": "src/server.ts",
+  "license": "ISC",
+  "dependencies": {
+    "grpc": "^1.24.2",
+    "@grpc/grpc-js": "^1.10.5",
+    "google-protobuf": "^3.18.0",
+    "@solana/spl-token": "^0.3.7",
+    "@metaplex-foundation/mpl-token-metadata": "^2.5.2",
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^5.0.0",
+    "@types/google-protobuf": "^3.7.2",
+    "ts-node": "^9.1.1",
+    "typescript": "latest",
+    "grpc-tools": "^1.9.1",
+    "grpc_tools_node_protoc_ts": "^4.1.2"
+  }
+}
