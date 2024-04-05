@@ -18,12 +18,7 @@ import {
 	SystemProgram,
 	TransactionInstruction,
 } from "@solana/web3.js";
-import {
-	buildTransaction,
-	logNewMint,
-	logTransaction,
-	newLogSection,
-} from "./util";
+import { buildTransaction } from "./util";
 
 
 export async function createNft(
@@ -91,11 +86,7 @@ export async function createNft(
 			createMetadataInstruction,
 		],
 	);
-	const signature = await connection.sendTransaction(tx);
-
-	newLogSection();
-	await logTransaction(connection, signature);
-	logNewMint(mintKeypair.publicKey, 0);
+	await connection.sendTransaction(tx);
 }
 
 export async function mintNft(
@@ -105,17 +96,12 @@ export async function mintNft(
 	payerKeypair: Keypair,
 	recipientPublicKey: PublicKey,
 ) {
-	newLogSection();
-	console.log(`Minting NFT to recipient: ${recipientPublicKey}`);
-
 	const ixList: TransactionInstruction[] = [];
 	const associatedTokenAddress = getAssociatedTokenAddressSync(
 		mintPublicKey,
 		recipientPublicKey,
 	);
-	console.log(
-		`   Recipient Associated Token Address: ${associatedTokenAddress}`,
-	);
+
 	const associatedTokenAccountInfo = await connection.getAccountInfo(
 		associatedTokenAddress,
 	);
@@ -179,6 +165,5 @@ export async function mintNft(
 		[mintAuthority, payerKeypair],
 		ixList,
 	);
-	const signature = await connection.sendTransaction(tx);
-	await logTransaction(connection, signature);
+	await connection.sendTransaction(tx);
 }

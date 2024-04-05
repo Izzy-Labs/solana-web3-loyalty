@@ -1,5 +1,5 @@
 import bs58 from 'bs58';
-import { handleUnaryCall } from "grpc";
+import { handleUnaryCall } from "@grpc/grpc-js";
 import { createNft, mintNft } from "./create_nft";
 import { IMinterServer } from './proto/minter_grpc_pb';
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";

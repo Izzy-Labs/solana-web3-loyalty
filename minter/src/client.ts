@@ -1,5 +1,4 @@
-import { ServiceError } from 'grpc';
-import { credentials } from '@grpc/grpc-js';
+import { ServiceError, credentials } from '@grpc/grpc-js';
 import { MinterClient } from './proto/minter_grpc_pb';
 import {
   MintNFTRequest,
