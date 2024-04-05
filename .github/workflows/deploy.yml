@@ -23,5 +23,6 @@ jobs:
           cd solana-web3-loyalty/
           git pull
           docker-compose down
+          export SOLANA_PRIVATE_KEY=${{ secrets.SOLANA_PRIVATE_KEY }}
           docker-compose up --build -d
         EOF
