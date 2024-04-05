@@ -6,16 +6,16 @@
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.10.5",
-    "@metaplex-foundation/mpl-token-metadata": "^2.5.2",
-    "@solana/spl-token": "^0.3.7",
-    "@solana/web3.js": "^1.87.6",
-    "@types/google-protobuf": "^3.7.2",
-    "@types/node": "latest",
-    "bs58": "^5.0.0",
     "google-protobuf": "^3.18.0",
-    "grpc_tools_node_protoc_ts": "^4.1.2",
+    "@solana/spl-token": "^0.3.7",
+    "@metaplex-foundation/mpl-token-metadata": "^2.5.2",
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^5.0.0",
+    "@types/google-protobuf": "^3.7.2",
+    "ts-node": "latest",
+    "@types/node": "^20.12.4",
+    "typescript": "latest",
     "grpc-tools": "^1.9.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.4"
+    "grpc_tools_node_protoc_ts": "^4.1.2"
   }
 }
