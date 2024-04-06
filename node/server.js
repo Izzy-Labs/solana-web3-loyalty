@@ -31,9 +31,9 @@ const serverAddress = `${host}:${port}`;
 
 const client = new MinterClient(serverAddress, credentials.createInsecure());
 const mintNFTRequest = new MintNFTRequest();
-mintNFTRequest.setName('example_name');
-mintNFTRequest.setSymbol('ESN');
-mintNFTRequest.setUri('https://bafkreic4d7bbhvrn6gnzlu5qrub2hs7v634ocletbfxfhear2ap2cat2zu.ipfs.w3s.link/');
+mintNFTRequest.setName('Palette of Indulgence');
+mintNFTRequest.setSymbol('SSH');
+mintNFTRequest.setUri('https://izzynfts.com/foodpics/grilleblack.json');
 mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
 // Настройка подключения к базе данных PostgreSQL
 
