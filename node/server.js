@@ -26,7 +26,7 @@ const pool = new Pool({
 
 
 const port = 5000;
-const host = minter;
+const host = "minter";
 const serverAddress = `${host}:${port}`;
 
 const client = new MinterClient(serverAddress, credentials.createInsecure());
