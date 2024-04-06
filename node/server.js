@@ -4,12 +4,12 @@ const { Pool } = require('pg');
 const cors = require('cors');
 const grpc = require('@grpc/grpc-js');
 const credentials = require('@grpc/grpc-js');
-const proto = require('./proto/minter_grpc_pb');
-const MinterClient = require('./proto/minter_grpc_pb');
+const proto = require('./src/proto/minter_grpc_pb');
+const MinterClient = require('./src/proto/minter_grpc_pb');
 
-const messages = require('./proto/minter_pb');
-const MintNFTRequest = require('./proto/minter_pb');
-const MintNFTResponse = require('./proto/minter_pb');
+const messages = require('./src/proto/minter_pb');
+const MintNFTRequest = require('./src/proto/minter_pb');
+const MintNFTResponse = require('./src/proto/minter_pb');
 
 
 const app = express();
