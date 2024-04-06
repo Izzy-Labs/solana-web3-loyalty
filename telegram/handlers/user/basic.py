@@ -14,6 +14,8 @@ async def help_handler(message: Message, bot: Bot) -> None:
 
 async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
     user_id = message.from_user.id
+    username = message.from_user.username
+
     logger.info(f"User {user_id} started the bot")
 
     if pg.is_user_exists(user_id):
@@ -31,7 +33,7 @@ async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
         wallet_address = gen_keypair()
         logger.info(f"User {user_id} has been created with wallet address {wallet_address}")
 
-        pg.add_user(user_id, wallet_address)
+        pg.add_user(user_id, username, wallet_address)
         await message.answer(
             text=get_message_text("init_start", "us"),
             reply_markup=get_contact_keyboard()
