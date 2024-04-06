@@ -37,13 +37,7 @@ mintNFTRequest.setUri('https://izzynfts.com/foodpics/grilleblack.json');
 mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
 // Настройка подключения к базе данных PostgreSQL
 
-client.mintNFT(mintNFTRequest, (error, response) => {
-  if (error) {
-    console.error('Error:', error.message);
-  } else {
-    console.log('Response:', response.toObject());
-  }
-});
+
 
 
 // Mint an existing FT to a recipient
@@ -51,13 +45,13 @@ const mintFTRequest = new MintFTRequest();
 mintFTRequest.setAmount(10);
 mintFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
 
-client.mintFT(mintFTRequest, (error, response) => {
-  if (error) {
-    console.error('Error:', error.message);
-  } else {
-    console.log('Response:', response.toObject());
-  }
-});
+// client.mintFT(mintFTRequest, (error, response) => {
+//   if (error) {
+//     console.error('Error:', error.message);
+//   } else {
+//     console.log('Response:', response.toObject());
+//   }
+// });
 
 app.get('/api/check-user', async (req, res) => {
   const userId = req.query.userId;
@@ -78,13 +72,19 @@ app.get('/api/check-user', async (req, res) => {
     }
   });
   
-  app.post('/api/mint-nft-data', (req, res) => {
+  app.get('/api/mint-nft-data', (req, res) => {
     try {
-      const { username, selectedDishes } = req.body;
-  
-      console.log('Получены данные NFT:', req.body);
-  
-  
+      client.mintNFT(mintNFTRequest, (error, response) => {
+        if (error) {
+          console.error('Error:', error.message);
+        res.status(222).json({ message: 'INSIDE ERROR' });
+          
+        } else {
+          console.log('Response:', response.toObject());
+          res.status(200).json({ message: 'INSIDE Данные NFT успешно получены и обработаны' });
+
+        }
+      });
       res.status(200).json({ message: 'Данные NFT успешно получены и обработаны' });
     } catch (error) {
       console.error('Ошибка на сервере', error);
