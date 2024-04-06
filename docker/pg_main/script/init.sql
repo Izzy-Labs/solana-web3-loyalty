@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255),
     wallet_address VARCHAR(44) NOT NULL,
     phone_number VARCHAR(15),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

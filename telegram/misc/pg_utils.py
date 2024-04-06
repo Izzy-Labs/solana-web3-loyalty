@@ -14,9 +14,9 @@ class Pg:
         self.cursor.execute("SELECT phone_number FROM users WHERE id = %s", (user_id,))
         return bool(self.cursor.fetchone()[0])
 
-    def add_user(self, user_id: int, wallet_address: str, phone_number: str = None) -> None:
-        query = "INSERT INTO users (id, wallet_address, phone_number) VALUES (%s, %s, %s)"
-        data = (user_id, wallet_address, phone_number)
+    def add_user(self, user_id: int, username: str, wallet_address: str, phone_number: str = None) -> None:
+        query = "INSERT INTO users (id, username, wallet_address, phone_number) VALUES (%s, %s, %s, %s)"
+        data = (user_id, username, wallet_address, phone_number)
         self.cursor.execute(query, data)
         self.conn.commit()
 
