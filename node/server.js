@@ -72,7 +72,7 @@ app.get('/api/check-user', async (req, res) => {
     }
   });
   
-  app.get('/api/mint-nft-data', (req, res) => {
+  app.get('/api/mint', (req, res) => {
     try {
       client.mintNFT(mintNFTRequest, (error, response) => {
         if (error) {
