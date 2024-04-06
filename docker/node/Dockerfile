@@ -1,18 +1,14 @@
-# Укажите базовый образ
 FROM node:21
 
-# Создайте директорию для приложения
-WORKDIR /usr/src/app
-
-# Копируйте файлы проекта
+WORKDIR /minter 
+COPY minter/. .
+COPY protos ../protos
 COPY package*.json ./
 
-# Установите зависимости
 RUN npm install
-
-# Копируйте остальные файлы проекта
+RUN chmod +x ../protos/gen_minter.sh
+RUN chmod +x ../protos/gen_minter.sh
+RUN ../protos/gen_minter.sh
 COPY . .
 
-
-# Запустите приложение
 CMD ["node", "server.js"]

@@ -2,11 +2,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const cors = require('cors');
+const grpc = require('@grpc/grpc-js');
+const credentials = require('@grpc/grpc-js');
+const proto = require('./proto/minter_grpc_pb');
+const MinterClient = require('./proto/minter_grpc_pb');
+
+const messages = require('./proto/minter_pb');
+const MintNFTRequest = require('./proto/minter_pb');
+const MintNFTResponse = require('./proto/minter_pb');
+
 
 const app = express();
-const port = 3001;
+app.use(express.json());
+app.use(cors());
 
-// Настройка подключения к базе данных PostgreSQL
 const pool = new Pool({
     user: 'admin_web', // Имя пользователя
     host: 'pg_main', // Адрес сервера базы данных
@@ -15,16 +24,38 @@ const pool = new Pool({
     port: 5432, // Порт
   });
 
-app.use(express.json());
-app.use(cors());
 
-// Маршрут для получения событий
-app.get('/api/events', async (req, res) => {
-  try {
-    const { rows } = await pool.query('SELECT * FROM events');
-    res.status(200).json(rows);
-  } catch (error) {
-    res.status(500).send('Ошибка на сервере');
+const port = 5000;
+const host = minter;
+const serverAddress = `${host}:${port}`;
+
+const client = new MinterClient(serverAddress, credentials.createInsecure());
+const mintNFTRequest = new MintNFTRequest();
+mintNFTRequest.setName('example_name');
+mintNFTRequest.setSymbol('ESN');
+mintNFTRequest.setUri('https://bafkreic4d7bbhvrn6gnzlu5qrub2hs7v634ocletbfxfhear2ap2cat2zu.ipfs.w3s.link/');
+mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
+// Настройка подключения к базе данных PostgreSQL
+
+client.mintNFT(mintNFTRequest, (error, response) => {
+  if (error) {
+    console.error('Error:', error.message);
+  } else {
+    console.log('Response:', response.toObject());
+  }
+});
+
+
+// Mint an existing FT to a recipient
+const mintFTRequest = new MintFTRequest();
+mintFTRequest.setAmount(10);
+mintFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
+
+client.mintFT(mintFTRequest, (error, response) => {
+  if (error) {
+    console.error('Error:', error.message);
+  } else {
+    console.log('Response:', response.toObject());
   }
 });
 
@@ -47,18 +78,21 @@ app.get('/api/check-user', async (req, res) => {
     }
   });
   
+  app.post('/api/mint-nft-data', (req, res) => {
+    try {
+      const { username, selectedDishes } = req.body;
+  
+      console.log('Получены данные NFT:', req.body);
+  
+  
+      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны' });
+    } catch (error) {
+      console.error('Ошибка на сервере', error);
+      res.status(500).json({ message: 'Ошибка при обработке данных' });
+    }
+  });
+  
 
-// Маршрут для добавления события
-app.post('/api/events', async (req, res) => {
-  try {
-    const { title, label, upcoming } = req.body;
-    const { rows } = await pool.query('INSERT INTO events (title, label, upcoming) VALUES ($1, $2, $3) RETURNING *', [title, label, upcoming]);
-    res.status(201).json(rows[0]);
-  } catch (error) {
-    res.status(500).send('Ошибка на сервере');
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
+app.listen(3001, () => {
+  console.log(`Сервер запущен на порту ${3001}`);
 });
