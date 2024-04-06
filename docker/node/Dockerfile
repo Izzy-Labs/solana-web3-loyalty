@@ -2,8 +2,8 @@ FROM node:21
 
 WORKDIR /usr/src/app
 
-COPY . .
-COPY ../protos ../protos
+COPY node/ .
+COPY protos ../protos
 
 RUN npm install
 
