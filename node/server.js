@@ -67,25 +67,17 @@ app.get('/api/check-user', async (req, res) => {
     }
   });
   
-  // app.get('/api/mint', (req, res) => {
-  //   try {
-  //     client.mintNFT(mintNFTRequest, (error, response) => {
-  //       if (error) {
-  //         console.error('Error:', error.message);
-  //       res.status(222).json({ message: 'INSIDE ERROR' });
-          
-  //       } else {
-  //         console.log('Response:', response.toObject());
-  //         res.status(200).json({ message: 'INSIDE Данные NFT успешно получены и обработаны' });
+  app.get('/api/mint', (req, res) => {
+    try {
+      const {userID, dishes} = req.body;
+      console.log(userID, dishes);
 
-  //       }
-  //     });
-  //     res.status(200).json({ message: 'Данные NFT успешно получены и обработаны' });
-  //   } catch (error) {
-  //     console.error('Ошибка на сервере', error);
-  //     res.status(500).json({ message: 'Ошибка при обработке данных' });
-  //   }
-  // });
+      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны' });
+    } catch (error) {
+      console.error('Ошибка на сервере', error);
+      res.status(500).json({ message: 'Ошибка при обработке данных' });
+    }
+  });
   
 
 app.listen(3001, () => {
