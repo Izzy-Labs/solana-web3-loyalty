@@ -55,12 +55,14 @@ app.get('/api/check-user', async (req, res) => {
   
       // Проверка наличия пользователя в таблице institution_staff
       const staffResult = await pool.query('SELECT * FROM institution_staff WHERE user_id = $1', [userId]);
+      console.log(staffResult)
+      console.log(staffResult.rowCount)
       if (staffResult.rowCount > 0) {
         return res.json({ role: 'staff' });
       }
   
       // Пользователь не найден в обеих таблицах
-      res.json({ role: 'guest' });
+      return res.json({ role: 'guest' });
     } catch (error) {
       console.error('Ошибка при проверке пользователя:', error);
       res.status(500).send('Ошибка сервера');
