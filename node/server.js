@@ -48,7 +48,7 @@ app.get('/api/check-user', async (req, res) => {
     const userId = req.query.userId;
     try {
       // Проверка наличия пользователя в таблице users и получение wallet_address
-      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [userId]);
+      const userResult = await pool.query('SELECT wallet_address FROM User WHERE id = $1', [userId]);
       if (userResult.rowCount > 0) {
         // Пользователь найден, отправляем wallet_address обратно на клиент
         const wallet = userResult.rows[0].wallet_address;
