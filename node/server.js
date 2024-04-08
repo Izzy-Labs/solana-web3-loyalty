@@ -18,10 +18,10 @@ const minterClient = new MinterClient(
 );
 
 const pool = new Pool({
-    user: 'admin_web',
+    user: 'staff_web',
     host: 'pg_main',
     database: 'postgres',
-    password: 'zV8YbrJHjqkP5NRctnQGT2whuK7FMUD9',
+    password: 'CFyaHKhbg96vfLTeWRmXNkYVxt7JPqdU',
     port: 5432,
   });
 
@@ -48,7 +48,7 @@ app.get('/api/check-user', async (req, res) => {
     const userId = req.query.userId;
     try {
       // Проверка наличия пользователя в таблице users и получение wallet_address
-      const userResult = await pool.query('SELECT wallet_address FROM User WHERE id = $1', [userId]);
+      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [userId]);
       if (userResult.rowCount > 0) {
         // Пользователь найден, отправляем wallet_address обратно на клиент
         const wallet = userResult.rows[0].wallet_address;
