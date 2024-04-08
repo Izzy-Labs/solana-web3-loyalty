@@ -1,14 +1,17 @@
 msgid "help"
 msgstr "Here's a list of available commands:\n/help - Show this help message\n/start - Start the bot"
 
-msgid "init_start"
-msgstr "first start"
+msgid "init_start_1"
+msgstr "Welcome to a realm where visits to your favorite restaurants turn into new gastronomic opportunities."
+
+msgid "init_start_2"
+msgstr "For each visit, you’ll earn points and receive a unique collectible.\n  - Some events are rare and time-bound — they enable upscale experiences.\n  - It doesn't matter where you earned the points: you decide where to spend them next.\n\nShall we?"
 
 msgid "start"
-msgstr "second start"
+msgstr "It’s a pleasure to see you again."
 
 msgid "request_contact"
-msgstr "request contact"
+msgstr "We kindly request your phone number to facilitate the identification process by our esteemed restaurant staff, ensuring that you receive exclusive privileges tailored to each of your experiences."
 
 msgid "answer_on_response_contact"
-msgstr "answer on response contact: {phone_number}"
+msgstr "We are glad to welcome you to the community."

@@ -26,7 +26,7 @@ async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
             )
         else:
             await message.answer(
-                text=get_message_text("start", "us"),
+                text=get_message_text("request_contact", "us"),
                 reply_markup=get_contact_keyboard()
             )
     else:
@@ -34,8 +34,10 @@ async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
         logger.info(f"User {user_id} has been created with wallet address {wallet_address}")
 
         pg.add_user(user_id, username, wallet_address)
+        await message.answer(text=get_message_text("init_start_1", "us"))
+        await message.answer(text=get_message_text("init_start_2", "us"))
         await message.answer(
-            text=get_message_text("init_start", "us"),
+            text=get_message_text("request_contact", "us"),
             reply_markup=get_contact_keyboard()
         )
 

@@ -1,5 +1,5 @@
 msgid "contact_request"
-msgstr "contact request"
+msgstr "Share my phone number"
 
 msgid "webapp"
-msgstr "webapp"
+msgstr "Open IZZY app"
