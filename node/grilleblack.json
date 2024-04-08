@@ -1,0 +1,22 @@
+{
+    "name": "Palette of Indulgence",
+    "symbol": "SSH",
+    "description": "An elaborate gastronomic canvas, this dish presents an assortment of hand-crafted sweets and pastries. Each piece is a unique blend of flavors, from tangy citrus macarons to rich chocolate truffles, surrounding a central crepe cake drizzled with raspberry coulis and dark chocolate. A celebration of textures and tastes designed to delight the senses.",
+    "image": "https://izzynfts.com/foodpics/grilleblack.png",
+    "attributes": [
+        {
+            "trait_type": "Type",
+            "value": "limited"
+        },
+        {
+            "trait_type": "Brand",
+            "value": "Solana Steak House"
+        },
+        {
+            "trait_type": "Achievement",
+            "value": "dish"
+        }
+    ],
+    "external_url": "https://izzylabs.xyz"
+
+}

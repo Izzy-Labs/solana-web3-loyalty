@@ -1,15 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const cors = require('cors');
-const grpc = require('@grpc/grpc-js');
-const credentials = require('@grpc/grpc-js');
-const proto = require('./proto/minter_grpc_pb');
-const MinterClient = require('./proto/minter_grpc_pb');
+// const grpc = require('@grpc/grpc-js');
+// const credentials = require('@grpc/grpc-js');
+// const proto = require('./src/proto/minter_grpc_pb');
+// const MinterClient = require('./src/proto/minter_grpc_pb');
 
-const messages = require('./proto/minter_pb');
-const MintNFTRequest = require('./proto/minter_pb');
-const MintNFTResponse = require('./proto/minter_pb');
+// const messages = require('./src/proto/minter_pb');
+// const MintNFTRequest = require('./src/proto/minter_pb');
+// const MintNFTResponse = require('./src/proto/minter_pb');
 
 
 const app = express();
@@ -26,38 +25,28 @@ const pool = new Pool({
 
 
 const port = 5000;
-const host = minter;
+const host = "minter";
 const serverAddress = `${host}:${port}`;
 
-const client = new MinterClient(serverAddress, credentials.createInsecure());
-const mintNFTRequest = new MintNFTRequest();
-mintNFTRequest.setName('example_name');
-mintNFTRequest.setSymbol('ESN');
-mintNFTRequest.setUri('https://bafkreic4d7bbhvrn6gnzlu5qrub2hs7v634ocletbfxfhear2ap2cat2zu.ipfs.w3s.link/');
-mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
-// Настройка подключения к базе данных PostgreSQL
+// const client = new MinterClient(serverAddress, credentials.createInsecure());
+// const mintNFTRequest = new MintNFTRequest();
+// mintNFTRequest.setName('Palette of Indulgence');
+// mintNFTRequest.setSymbol('SSH');
+// mintNFTRequest.setUri('https://izzynfts.com/foodpics/grilleblack.json');
+// mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
+// // Настройка подключения к базе данных PostgreSQL
 
-client.mintNFT(mintNFTRequest, (error, response) => {
-  if (error) {
-    console.error('Error:', error.message);
-  } else {
-    console.log('Response:', response.toObject());
-  }
-});
+// // Mint an existing FT to a recipient
+// mintFTRequest.setAmount(10);
+// mintFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
 
-
-// Mint an existing FT to a recipient
-const mintFTRequest = new MintFTRequest();
-mintFTRequest.setAmount(10);
-mintFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
-
-client.mintFT(mintFTRequest, (error, response) => {
-  if (error) {
-    console.error('Error:', error.message);
-  } else {
-    console.log('Response:', response.toObject());
-  }
-});
+// client.mintFT(mintFTRequest, (error, response) => {
+//   if (error) {
+//     console.error('Error:', error.message);
+//   } else {
+//     console.log('Response:', response.toObject());
+//   }
+// });
 
 app.get('/api/check-user', async (req, res) => {
   const userId = req.query.userId;
@@ -71,21 +60,20 @@ app.get('/api/check-user', async (req, res) => {
       }
   
       // Пользователь не найден в обеих таблицах
-      res.json({ role: 'guest' });
+      return res.json({ role: 'guest' });
     } catch (error) {
       console.error('Ошибка при проверке пользователя:', error);
       res.status(500).send('Ошибка сервера');
     }
   });
   
-  app.post('/api/mint-nft-data', (req, res) => {
+  app.post('/api/mint', (req, res) => {
     try {
-      const { username, selectedDishes } = req.body;
-  
-      console.log('Получены данные NFT:', req.body);
-  
-  
-      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны' });
+      const {userID, dishes} = req.body;
+      console.log(req.body)
+      console.log(userID, dishes);
+
+      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны', userId: userID, dishes_:dishes });
     } catch (error) {
       console.error('Ошибка на сервере', error);
       res.status(500).json({ message: 'Ошибка при обработке данных' });
