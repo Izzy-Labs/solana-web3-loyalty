@@ -1,4 +1,4 @@
-export function getMinterAddress() {
+function getMinterAddress() {
     // const port = process.env.MINTER_PORT;
     // const host = process.env.MINTER_HOST;
     const port = 5000;
