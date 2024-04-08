@@ -69,7 +69,7 @@ app.get('/api/check-user', async (req, res) => {
   
   app.post('/api/mint', (req, res) => {
     try {
-      const {userID, dishes} = req.body;
+      const {userID, dishes} = JSON.parse(req.body);
       console.log(req.body)
       console.log(userID, dishes);
 
