@@ -69,11 +69,11 @@ app.get('/api/check-user', async (req, res) => {
   
   app.post('/api/mint', (req, res) => {
     try {
-      const {userID, dishes} = JSON.parse(req.body);
+      const {username, selectedDishes} = req.body;
       console.log(req.body)
-      console.log(userID, dishes);
+      console.log(username, selectedDishes);
 
-      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны', userId: userID, dishes_:dishes });
+      res.status(200).json({ message: 'Данные NFT успешно получены и обработаны', userId: username, selectedDishes_:selectedDishes });
     } catch (error) {
       console.error('Ошибка на сервере', error);
       res.status(500).json({ message: 'Ошибка при обработке данных' });
