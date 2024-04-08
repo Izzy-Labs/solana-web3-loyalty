@@ -69,7 +69,7 @@ app.get('/api/check-user', async (req, res) => {
       const {username, selectedDishes} = req.body;
       console.log(req.body)
       console.log(username, selectedDishes);
-      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [userId]);
+      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [username]);
       const wallet = userResult.rows[0].wallet_address;
       const mintNFTRequest = new MintNFTRequest();
       mintNFTRequest.setName('Palette of Indulgence');
