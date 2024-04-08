@@ -68,7 +68,7 @@ app.get('/api/check-user', async (req, res) => {
 
       const mintFTRequest = new MintFTRequest();
       mintFTRequest.setAmount(10);
-      mintFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
+      mintFTRequest.setRecipient('Aj6bHDqZCJZY5ScPszwhebww1tBNsG5ZyS5Pj1gTAqvf');
 
       minterClient.mintFT(mintFTRequest, (error, response) => {
         if (error) {
