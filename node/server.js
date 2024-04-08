@@ -43,6 +43,26 @@ app.get('/api/check-user', async (req, res) => {
       res.status(500).send('Ошибка сервера');
     }
   });
+
+  app.get('/api/get-user-wallet', async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      // Проверка наличия пользователя в таблице users и получение wallet_address
+      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [userId]);
+      if (userResult.rowCount > 0) {
+        // Пользователь найден, отправляем wallet_address обратно на клиент
+        const wallet = userResult.rows[0].wallet_address;
+        return res.json({ wallet });
+      } else {
+        // Пользователь не найден
+        return res.status(404).json({ error: "Пользователь не найден" });
+      }
+    } catch (error) {
+      console.error('Ошибка при запросе к базе данных:', error);
+      res.status(500).send('Ошибка сервера');
+    }
+  });
+  
   
   app.post('/api/mint', (req, res) => {
     try {
