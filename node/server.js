@@ -64,17 +64,18 @@ app.get('/api/check-user', async (req, res) => {
   });
   
   
-  app.post('/api/mint', (req, res) => {
+  app.post('/api/mint', async (req, res) => {
     try {
       const {username, selectedDishes} = req.body;
       console.log(req.body)
       console.log(username, selectedDishes);
-
+      const userResult = await pool.query('SELECT wallet_address FROM users WHERE id = $1', [userId]);
+      const wallet = userResult.rows[0].wallet_address;
       const mintNFTRequest = new MintNFTRequest();
       mintNFTRequest.setName('Palette of Indulgence');
       mintNFTRequest.setSymbol('SSH');
       mintNFTRequest.setUri('https://bafkreihf2ql3vxkk45cghjxxuelhrjp3ll4lmkfd4whuugkftuptwnk5fa.ipfs.w3s.link/');
-      mintNFTRequest.setRecipient('Aj6bHDqZCJZY5ScPszwhebww1tBNsG5ZyS5Pj1gTAqvf');
+      mintNFTRequest.setRecipient(wallet);
 
       minterClient.mintNFT(mintNFTRequest, (error, response) => {
         if (error) {
@@ -88,7 +89,7 @@ app.get('/api/check-user', async (req, res) => {
 
       const mintFTRequest = new MintFTRequest();
       mintFTRequest.setAmount(10);
-      mintFTRequest.setRecipient('Aj6bHDqZCJZY5ScPszwhebww1tBNsG5ZyS5Pj1gTAqvf');
+      mintFTRequest.setRecipient(wallet);
 
       minterClient.mintFT(mintFTRequest, (error, response) => {
         if (error) {
