@@ -1,15 +1,16 @@
 import {
-	createCreateMetadataAccountV3Instruction,
 	createCreateMasterEditionV3Instruction,
+	createCreateMetadataAccountV3Instruction,
 	PROGRAM_ID,
 } from "@metaplex-foundation/mpl-token-metadata";
 import {
+	ASSOCIATED_TOKEN_PROGRAM_ID,
 	createAssociatedTokenAccountInstruction,
 	createInitializeMintInstruction,
 	createMintToInstruction,
 	getAssociatedTokenAddressSync,
 	MINT_SIZE,
-	TOKEN_PROGRAM_ID,
+	TOKEN_PROGRAM_ID
 } from "@solana/spl-token";
 import {
 	Connection,
@@ -21,14 +22,14 @@ import {
 import { buildTransaction } from "./util";
 
 
-export async function createNft(
+export async function createNFT(
 	connection: Connection,
 	mintKeypair: Keypair,
 	payerKeypair: Keypair,
 	tokenName: string,
 	tokenSymbol: string,
 	tokenUri: string,
-) {
+): Promise<string> {
 
 	const createMintAccountInstruction = SystemProgram.createAccount({
 		fromPubkey: payerKeypair.publicKey,
@@ -86,16 +87,16 @@ export async function createNft(
 			createMetadataInstruction,
 		],
 	);
-	await connection.sendTransaction(tx);
+	return await connection.sendTransaction(tx);
 }
 
-export async function mintNft(
+export async function mintNFT(
 	connection: Connection,
 	mintPublicKey: PublicKey,
 	mintAuthority: Keypair,
 	payerKeypair: Keypair,
 	recipientPublicKey: PublicKey,
-) {
+): Promise<string> {
 	const ixList: TransactionInstruction[] = [];
 	const associatedTokenAddress = getAssociatedTokenAddressSync(
 		mintPublicKey,
@@ -115,6 +116,8 @@ export async function mintNft(
 				associatedTokenAddress,
 				recipientPublicKey,
 				mintPublicKey,
+				TOKEN_PROGRAM_ID,
+				ASSOCIATED_TOKEN_PROGRAM_ID
 			),
 		);
 	}
@@ -165,5 +168,5 @@ export async function mintNft(
 		[mintAuthority, payerKeypair],
 		ixList,
 	);
-	await connection.sendTransaction(tx);
+	return await connection.sendTransaction(tx);
 }
