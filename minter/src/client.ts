@@ -16,9 +16,9 @@ const client = new MinterClient(serverAddress, credentials.createInsecure());
 
 // Create a new NFT and mint it to a recipient
 const mintNFTRequest = new MintNFTRequest();
-mintNFTRequest.setName('example_name');
-mintNFTRequest.setSymbol('ESN');
-mintNFTRequest.setUri('https://bafkreic4d7bbhvrn6gnzlu5qrub2hs7v634ocletbfxfhear2ap2cat2zu.ipfs.w3s.link/');
+mintNFTRequest.setName('Palette of Indulgence');
+mintNFTRequest.setSymbol('SSH');
+mintNFTRequest.setUri('https://bafkreihf2ql3vxkk45cghjxxuelhrjp3ll4lmkfd4whuugkftuptwnk5fa.ipfs.w3s.link/');
 mintNFTRequest.setRecipient('F1psEzh4pggrDVuq2nLHNgyJT78nFEyof8kCkhkZmrQf');
 
 client.mintNFT(mintNFTRequest, (error: ServiceError | null, response: MintNFTResponse) => {

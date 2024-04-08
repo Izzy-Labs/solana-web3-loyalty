@@ -1,19 +1,16 @@
 import bs58 from 'bs58';
 import { handleUnaryCall } from "@grpc/grpc-js";
-import { createNft, mintNft } from "./create_nft";
+import { createNFT, mintNFT } from "./createNFT";
 import { IMinterServer } from './proto/minter_grpc_pb';
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import {
-  mintTo,
-  TOKEN_PROGRAM_ID,
-  createAssociatedTokenAccountIdempotent
-} from "@solana/spl-token";
 import {
     MintNFTRequest,
     MintNFTResponse,
     MintFTRequest,
     MintFTResponse,
 } from './proto/minter_pb';
+import { mintFT } from "./mintFT";
+import { confirmTransaction, logNewMint, newLogSection } from "./util";
 
 
 export class MinterServer implements IMinterServer {
@@ -47,7 +44,8 @@ export class MinterServer implements IMinterServer {
       const recipient = new PublicKey(call.request.getRecipient());
       const payer = Keypair.fromSecretKey(bs58.decode(privateKey));
 
-      await createNft(
+      newLogSection();
+      const createSignature = await createNFT(
         connection,
         tokenMintKeypair,
         payer,
@@ -56,7 +54,13 @@ export class MinterServer implements IMinterServer {
         uri,
       );
 
-      await mintNft(
+      await confirmTransaction(connection, createSignature);
+	  logNewMint(tokenMintKeypair.publicKey, 0);
+
+      newLogSection();
+      console.log(`Minting NFT to recipient: ${recipient.toBase58()}`);
+
+      const mintSignature = await mintNFT(
         connection,
         tokenMintKeypair.publicKey,
         payer,
@@ -64,9 +68,12 @@ export class MinterServer implements IMinterServer {
         recipient
       );
 
+      await confirmTransaction(connection, mintSignature);
+
       const response = new MintNFTResponse();
       response.setPublickey(tokenMintKeypair.publicKey.toBase58());
-      response.setSignature('example_signature');
+      response.setSignature(mintSignature);
+
       callback(null, response);
 
     } catch (error: any) {
@@ -116,29 +123,17 @@ export class MinterServer implements IMinterServer {
       const payer = Keypair.fromSecretKey(bs58.decode(privateKey));
       const recipient = new PublicKey(call.request.getRecipient());
 
-      const tokenAccount = await createAssociatedTokenAccountIdempotent(
+      const signature = await mintFT(
           connection,
           payer,
           mint,
           recipient,
-          {},
-          TOKEN_PROGRAM_ID
-      );
-
-      const signature = await mintTo(
-          connection,
-          payer,
-          mint,
-          tokenAccount,
-          payer,
-          amount,
-          [],
-          undefined,
-          TOKEN_PROGRAM_ID
+          amount
       );
 
       const response = new MintFTResponse();
       response.setSignature(signature);
+
       callback(null, response);
 
     } catch (error: any) {
